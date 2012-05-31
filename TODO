@@ -1,8 +1,3 @@
-This project is my excuse to learn Haskell by working through the `Project Euler
-problems <https://projecteuler.net/problems/>`_.  This is my first experience
-writing Haskell, so don't expect any revelatory code.  Comments are always
-welcome.
-
 TODO:
 =====
 Solve more problems
@@ -10,7 +5,6 @@ Solve more problems
 Improve run times on problems that take >1 minute to solve
 * 14 - the lookup table never actually gets used
 * 21
-* 23
 * 47
 * 120
 * 188

@@ -16,6 +16,7 @@ import Data.Bits
 import qualified Data.Map as Map
 
 -- Determines if a number is an integer
+isInt :: Float -> Bool
 isInt x = floor x == ceiling x
 
 -- Finds the integer part of the square root of a number

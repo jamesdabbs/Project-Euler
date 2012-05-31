@@ -1,23 +1,36 @@
-import Data.List
-import qualified Data.Map as Map
+-- Finds sum of all numbers (<28123) which cannot be written as the 
+-- sum of two abundant numbers.
+-- solution = 4179871
+import Data.Set (Set, fromList, toList, difference, fold, member)
+import Data.List (nub)
 
-isAbundant n = sum [i | i<-[1..(n-1)], n `mod` i ==0] > n
+import Euler(isqrt, isInt)
 
-abundantsBelow n = fst . unzip . Map.toList . populate Map.empty $ [12 .. n]
-    where 
-        populate table (x:xs) = case Map.lookup x table of
-            -- If it's already in the table, we know it's abundant
-            Just _  -> populate table xs
-            -- Otherwise, check if it's abundant manually
-            Nothing -> 
-                if isAbundant x
-                    -- If so, add it and all multiples (up to n)
-                    then populate (foldl (\t v -> Map.insert v 1 t) 
-                        table [x, 2*x .. n]) xs
-                    else populate table xs
-        populate table [] = table
-        
-sums = nub . sort . filter (<28123) $ [abs!!i + abs!!j | i<-rng, j<-[0..i]]
-    where
-        abs = abundantsBelow 28123
-        rng = [0 .. length abs]
+-- Gets the lower factors of n (up to sqrt(n))
+lFactors :: Integer -> [Integer]
+lFactors n = filter ((== 0) . (n `mod`)) [1 .. (isqrt n)]
+
+-- Finds the sum of the divisors of n
+-- Using only the lower factors is more efficient (O(sqrt n)), but 
+--   includes n in the count and double-counts sqrt n if n is square,
+--   so we have to compensate for that.
+divSum :: Integer -> Integer
+divSum n = sum [i + (n `div` i) | i<-lFactors n] - diff
+  where
+    diff = if isInt . sqrt . fromInteger $ n 
+      then n + isqrt n 
+      else n
+
+-- Tests if a number is abundant
+isAbundant :: Integer -> Bool
+isAbundant n = divSum n > n
+
+
+-- List of abundants in our range
+abundants = filter isAbundant [1..28123]
+-- List of abundant sums in our range, converted to a set for faster
+--   element lookup
+abSums = fromList $ [a+b | a<-abundants, 
+  b<-takeWhile (<= min a (28123-a)) abundants]
+-- The sum of everything in range but not in abSums
+solution = sum . filter (not . (`member` abSums)) $ [1..28123]
