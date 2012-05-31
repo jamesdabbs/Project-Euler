@@ -1,7 +1,7 @@
 -- Finds sum of all numbers (<28123) which cannot be written as the 
 -- sum of two abundant numbers.
 -- solution = 4179871
-import Data.Set (Set, fromList, toList, difference, fold, member)
+import Data.Set (Set, fromList, member)
 import Data.List (nub)
 
 import Euler(isqrt, isInt)
