@@ -10,7 +10,6 @@ module Euler
 , isPrime
 , primes
 , ominus
-, phi
 ) where
 
 import Data.Bits
