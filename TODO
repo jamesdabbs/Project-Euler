@@ -3,12 +3,16 @@ TODO:
 Solve more problems
 
 Improve run times on problems that take >1 minute to solve
-* 14 - the lookup table never actually gets used
-* 21
-* 47
-* 120
-* 188
-* 206
+* hs
+  * 14 - the lookup table never actually gets used
+  * 21
+  * 47
+  * 120
+  * 188
+  * 206
+* rb
+  * 92
+  * 104
 
 Learn file input and redo
 * 22

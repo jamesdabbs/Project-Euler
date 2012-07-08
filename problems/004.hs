@@ -2,7 +2,7 @@
 -- largestPalindrome 3 = 906609
 isPalindrome str = str == reverse str
 
-largestPalindrome x = maximum $ filter (isPalindrome . show) 
+largestPalindrome x = maximum $ filter (isPalindrome . show)
     [a * b | a <- rng, b <- rng]
     where
         rng = [10^(x-1) .. (10^x - 1)]
