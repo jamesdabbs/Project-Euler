@@ -31,5 +31,5 @@ def solution(places=8)
 		end
 		a += 1
 	end
-	hits.to_a.inject { |acc,x| acc + x}
+	hits.to_a.inject(:+)
 end
