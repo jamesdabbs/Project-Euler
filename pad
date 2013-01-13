@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+EXTENSIONS = %w{ c hs rb }
+
+EXTENSIONS.each do |ext|
+  Dir["**/*.#{ext}"].each do |s|
+    *path, file = s.split('/')
+    next unless file =~ /^(\d+).#{ext}$/
+    file = "#{$1.rjust(3, '0')}.#{ext}"
+    new_s = "#{path.join('/')}/#{file}"
+    next if s == new_s
+    puts "#{s} -> #{new_s}"
+    `git mv #{s} #{new_s}`
+  end
+end
